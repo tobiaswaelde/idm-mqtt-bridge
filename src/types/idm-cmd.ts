@@ -11,7 +11,7 @@ export enum Command {
 	SetWarmwaterTemp = 'set_warmwater_temp',
 }
 
-export type IdmCmd =
+export type IdmCommand =
 	| { cmd: Command.PushInfo }
 	| { cmd: Command.PushHeatpump }
 	| { cmd: Command.PushStats; stats_type: StatsType }
