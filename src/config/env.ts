@@ -7,6 +7,7 @@ const envPath = path.resolve(process.cwd(), '.env');
 dotenv.config({ path: envPath });
 
 export const ENV = cleanEnv(process.env, {
+	// MQTT
 	MQTT_PROTOCOL: str({ default: 'mqtt', desc: 'Protocol for MQTT connection' }),
 	MQTT_HOST: str({ desc: 'MQTT broker hostname or IP' }),
 	MQTT_PORT: num({ default: 1883, desc: 'MQTT broker port' }),
@@ -17,9 +18,15 @@ export const ENV = cleanEnv(process.env, {
 		devDefault: crypto.randomUUID(),
 		desc: 'MQTT client ID',
 	}),
+	// IDM
 	IDM_HOST: str({ desc: 'Hostname or IP of the IDM control (e.g., `http://192.168.1.50`)' }),
 	IDM_PIN: str({ desc: 'Pin for the IDM control' }),
-	IDM_POLL_INTERVAL: num({ default: 1000, desc: 'Poll interval in ms for IDM messages' }),
+	IDM_TOPIC: str({ desc: 'MQTT topic prefix for IDM messages' }),
+	// config
+	IDM_POLL_INTERVAL: num({
+		default: 1000,
+		desc: 'Poll interval in ms for IDM messages. Set to 0 to disable polling.',
+	}),
 	WLED_TIMEOUT: num({
 		default: 30000,
 		desc: 'Time (ms) of consecutive failures before increasing poll interval',
@@ -28,7 +35,14 @@ export const ENV = cleanEnv(process.env, {
 		default: 30000,
 		desc: 'Poll interval in ms after timeout',
 	}),
-	TOPIC: str({ desc: 'MQTT topic prefix for IDM messages' }),
+	PUSH_JSON_OBJECT: bool({
+		default: true,
+		desc: 'If `true`, publish WLED state/info as full JSON objects',
+	}),
+	PUSH_JSON_KEYS: bool({
+		default: true,
+		desc: 'If `true`, also publish individual JSON keys as MQTT topics',
+	}),
 });
 
 // log environment variables to console
