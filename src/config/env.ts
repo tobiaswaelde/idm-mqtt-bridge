@@ -27,17 +27,17 @@ export const ENV = cleanEnv(process.env, {
 		default: 1000,
 		desc: 'Poll interval in ms for IDM messages. Set to 0 to disable polling.',
 	}),
-	WLED_TIMEOUT: num({
+	IDM_TIMEOUT: num({
 		default: 30000,
 		desc: 'Time (ms) of consecutive failures before increasing poll interval',
 	}),
-	WLED_TIMEOUT_DURATION: num({
+	IDM_TIMEOUT_DURATION: num({
 		default: 30000,
 		desc: 'Poll interval in ms after timeout',
 	}),
 	PUSH_JSON_OBJECT: bool({
 		default: true,
-		desc: 'If `true`, publish WLED state/info as full JSON objects',
+		desc: 'If `true`, publish IDM info/heatpump/stats as full JSON objects',
 	}),
 	PUSH_JSON_KEYS: bool({
 		default: true,

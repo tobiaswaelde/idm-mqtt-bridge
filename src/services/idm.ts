@@ -76,8 +76,8 @@ export class MyIdm extends TypedEmitter<IdmEvents> {
 		let delay = this.pollDelay;
 
 		// if we've been failing for longer than the timeout, slow down
-		if (this.firstFailAt && Date.now() - this.firstFailAt >= ENV.WLED_TIMEOUT) {
-			delay = ENV.WLED_TIMEOUT_DURATION;
+		if (this.firstFailAt && Date.now() - this.firstFailAt >= ENV.IDM_TIMEOUT) {
+			delay = ENV.IDM_TIMEOUT_DURATION;
 		}
 
 		this.pollTimer = setTimeout(async () => {
@@ -87,7 +87,7 @@ export class MyIdm extends TypedEmitter<IdmEvents> {
 
 				// successful → reset attempts + restore normal delay
 				if (this.firstFailAt) {
-					logger.scope('WLED').info('Connection restored, resetting delay');
+					logger.scope('IDM').info('Connection restored, resetting delay');
 				}
 				this.firstFailAt = null;
 				this.pollDelay = ENV.IDM_POLL_INTERVAL;
@@ -99,7 +99,7 @@ export class MyIdm extends TypedEmitter<IdmEvents> {
 				}
 				this.emit('disconnected', undefined);
 				logger
-					.scope('WLED')
+					.scope('IDM')
 					.warn(`Polling failed, first fail at ${new Date(this.firstFailAt).toISOString()}`);
 			}
 
