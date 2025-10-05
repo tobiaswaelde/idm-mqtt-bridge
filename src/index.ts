@@ -33,6 +33,10 @@ idm.on('info', (data) => {
 });
 idm.on('heatpump', (data) => {
 	publish(TOPICS.IDM.HEATPUMP, data);
+	// publish individual HKs
+	for (let i = 0; i < data.hk.length; i++) {
+		publish(`${TOPICS.IDM.HEATPUMP}/hk/${i}`, data.hk[i]);
+	}
 });
 idm.on('stats', ({ type, data }) => {
 	switch (type) {
