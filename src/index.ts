@@ -30,6 +30,10 @@ idm.on('disconnected', () => {
 });
 idm.on('info', (data) => {
 	publish(TOPICS.IDM.INFO, data);
+	// publish individual HKs
+	for (let i = 0; i < data.quickinfo.hk.length; i++) {
+		publish(`${TOPICS.IDM.INFO}/quickinfo/hk/${i}`, data.quickinfo.hk[i]);
+	}
 });
 idm.on('heatpump', (data) => {
 	publish(TOPICS.IDM.HEATPUMP, data);
